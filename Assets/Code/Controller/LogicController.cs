@@ -18,9 +18,9 @@ public abstract class LogicController : MonoBehaviour, ILogicScript
 
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.D))
+        //if(Input.GetKeyDown(KeyCode.D))
         {
-            ProcessManager.GetInstance().SetState(new ReadyProcess());
+            //ProcessManager.GetInstance().SetState(new ReadyProcess());
         }
 
     }

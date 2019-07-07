@@ -15,10 +15,10 @@ public class FlowerController : LogicController
         base.ActiveUpdate(dt);
 
         //test
-        if(Input.GetKeyDown(KeyCode.G))
-        {
-            EventManager.GetInstance().Fire(ConfigContext.HeartEvent, "drop");
-        }
+        //if(Input.GetKeyDown(KeyCode.G))
+        //{
+        //    EventManager.GetInstance().Fire(ConfigContext.HeartEvent, "drop");
+        //}
     }
 
     public void OnFlower(string param)

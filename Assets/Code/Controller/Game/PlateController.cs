@@ -61,6 +61,27 @@ public class PlateController : LogicController
         }
     }
 
+    public override void StopUpdate(float dt)
+    {
+        base.ActiveUpdate(dt);
+
+        switch (_state)
+        {
+            case PlateState.Drop:
+                {
+                    this.transform.position += DropSpeed * DropDir * dt;
+
+                    if (this.transform.position.y < GroundPoint.position.y)
+                    {
+                        _state = PlateState.Broke;
+
+                        _anim.SetBool("isbroke", true);
+                    }
+                }
+                break;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(_state == PlateState.Drop)
@@ -95,12 +116,24 @@ public class PlateController : LogicController
 
             if(_anim != null)
                 _anim.SetBool("isbroke", false);
+
+            _state = PlateState.Ready;
         }
     }
 
     public override void OnActiveInput()
     {
         base.OnActiveInput();
+
+        if (_state == PlateState.Ready)
+        {
+            _state = PlateState.Drop;
+        }
+    }
+
+    public override void OnStopInput()
+    {
+        base.OnStopInput();
 
         if (_state == PlateState.Ready)
         {
