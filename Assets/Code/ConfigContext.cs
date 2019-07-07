@@ -12,4 +12,5 @@ public class ConfigContext
     public const string WomanEvent = "WomanEvent";
 
     public const string SignalEvent = "SignalEvent";
+    public const string ManEvent = "ManEvent";
 }

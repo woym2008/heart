@@ -71,7 +71,7 @@ public class HeartController : LogicController
             {
                 EventManager.GetInstance().Fire(ConfigContext.WomanEvent, "findheart");
             }
-            else if(_state == State.Ground)
+            else
             {
                 EventManager.GetInstance().Fire(ConfigContext.WomanEvent, "noheart");
             }

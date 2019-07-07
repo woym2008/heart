@@ -10,12 +10,17 @@ public class ManController : LogicController
 
     Animator _anim;
 
+    public Camera _camera;
+    private Vector3 _cameraOriLocalPos;
+
     public Transform HandPoint;
     public Transform HandLeftPos;
     public Transform HandRightPos;
 
     public float Speed = 1.0f;
     public Vector3 _currentDir;
+
+    public GameObject Hole;
 
     private void Start()
     {
@@ -24,6 +29,10 @@ public class ManController : LogicController
         _anim = this.gameObject.GetComponent<Animator>();
 
         _anim.SetBool("isleft", true);
+
+        EventManager.GetInstance().AddListener(ConfigContext.ManEvent, OnMan);
+
+        _cameraOriLocalPos = _camera.transform.localPosition;
     }
     public override void EnterActive()
     {
@@ -42,13 +51,23 @@ public class ManController : LogicController
         _anim.SetBool("isleft", true);
         _anim.SetBool("iswalk", true);
 
-
+        _camera.transform.localPosition = _cameraOriLocalPos;
     }
     public override void ActiveUpdate(float dt)
     {
         base.ActiveUpdate(dt);
 
         MoveUpdate(dt);
+    }
+
+    public void OnMan(string param)
+    {
+        if(param == "die")
+        {
+            Hole.SetActive(true);
+
+            _anim.SetBool("iswalk", false);
+        }
     }
 
     private void CollectPath()
@@ -116,9 +135,27 @@ public class ManController : LogicController
 
     }
 
+    public float CameraSpeed = 0.5f;
     public override void StopUpdate(float dt)
     {
         base.StopUpdate(dt);
+
+        if(Input.GetKey(KeyCode.A))
+        {
+            _camera.transform.Translate(CameraSpeed * dt * new Vector3(-1, 0, 0));
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            _camera.transform.Translate(CameraSpeed * dt * new Vector3(1, 0, 0));
+        }
+        if (Input.GetKey(KeyCode.W))
+        {
+            _camera.transform.Translate(CameraSpeed * dt * new Vector3(0, 1, 0));
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            _camera.transform.Translate(CameraSpeed * dt * new Vector3(0, -1, 0));
+        }
     }
 
     public override void Reset()
@@ -133,5 +170,6 @@ public class ManController : LogicController
             HandPoint.localPosition = HandLeftPos.localPosition;
         }
 
+        Hole.SetActive(false);
     }
 }
