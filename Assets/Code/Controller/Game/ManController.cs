@@ -8,12 +8,22 @@ public class ManController : LogicController
 
     Queue<Transform> _currentPoints = new Queue<Transform>();
 
+    Animator _anim;
+
+    public Transform HandPoint;
+    public Transform HandLeftPos;
+    public Transform HandRightPos;
+
     public float Speed = 1.0f;
     public Vector3 _currentDir;
 
     private void Start()
     {
         CollectPath();
+
+        _anim = this.gameObject.GetComponent<Animator>();
+
+        _anim.SetBool("isleft", true);
     }
     public override void EnterActive()
     {
@@ -28,17 +38,17 @@ public class ManController : LogicController
         _currentDir = (currentpoint.transform.position - this.transform.position).normalized;
 
         Reset();
+
+        _anim.SetBool("isleft", true);
+        _anim.SetBool("iswalk", true);
+
+
     }
     public override void ActiveUpdate(float dt)
     {
         base.ActiveUpdate(dt);
 
         MoveUpdate(dt);
-    }
-
-    public override bool Equals(object other)
-    {
-        return base.Equals(other);
     }
 
     private void CollectPath()
@@ -78,6 +88,19 @@ public class ManController : LogicController
                     newpoint = this.transform.position + Speed * _currentDir;
 
                     this.transform.position = newpoint;
+
+                    if(_currentDir.x < 0)
+                    {
+                        //left
+                        _anim.SetBool("isleft", true);
+                        HandPoint.localPosition = HandLeftPos.localPosition;
+                    }
+                    else
+                    {
+                        //right
+                        _anim.SetBool("isleft", false);
+                        HandPoint.localPosition = HandRightPos.localPosition;
+                    }
                 }
                 else
                 {
@@ -96,5 +119,19 @@ public class ManController : LogicController
     public override void StopUpdate(float dt)
     {
         base.StopUpdate(dt);
+    }
+
+    public override void Reset()
+    {
+        base.Reset();
+
+        if(_anim!=null)
+        {
+            _anim.SetBool("isleft", true);
+            _anim.SetBool("iswalk", false);
+
+            HandPoint.localPosition = HandLeftPos.localPosition;
+        }
+
     }
 }

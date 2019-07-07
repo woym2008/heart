@@ -5,16 +5,10 @@ public class StartBtnController : LogicController
 {
     private void Start()
     {
-        EventManager.GetInstance().AddListener(ConfigContext.FlowerEvent, OnStart);
     }
     public override void ActiveUpdate(float dt)
     {
         base.ActiveUpdate(dt);
-    }
-
-    public override bool Equals(object other)
-    {
-        return base.Equals(other);
     }
 
     public void OnStart(string parm)

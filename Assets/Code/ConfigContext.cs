@@ -7,4 +7,6 @@ public class ConfigContext
     public const string PlateEvent = "PlateEvent";
     public const string KeyEvent = "KeyEvent";
     public const string HeadEvent = "HeadEvent";
+    public const string HerbicideEvent = "HerbicideEvent";
+    public const string WomanEvent = "WomanEvent";
 }

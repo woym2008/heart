@@ -5,7 +5,7 @@ public class SignalController : LogicController
 {
     private void Start()
     {
-        EventManager.GetInstance().AddListener(ConfigContext.FlowerEvent, OnSignal);
+        //EventManager.GetInstance().AddListener(ConfigContext.FlowerEvent, OnSignal);
     }
     public override void ActiveUpdate(float dt)
     {
