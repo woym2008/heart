@@ -21,6 +21,8 @@ public class WomanController : LogicController
 
     public WhiteController _white;
 
+    public GameObject EndUI;
+
     private void Start()
     {
         EventManager.GetInstance().AddListener(ConfigContext.WomanEvent, OnWoman);
@@ -70,7 +72,8 @@ public class WomanController : LogicController
         if(param == "findheart")
         {
             //_Animator
-            PlayWin();
+            //PlayWin();
+            StartCoroutine(ReadyWin());
         }
     }
 
@@ -176,6 +179,11 @@ public class WomanController : LogicController
     //------------------------------------
     IEnumerator ReadyWin()
     {
+        Debug.Log("ReadyWin");
         yield return new WaitForSeconds(1);
+
+        EventManager.GetInstance().Fire(ConfigContext.ManEvent, "stop");
+
+        EndUI.SetActive(true);
     }
 }

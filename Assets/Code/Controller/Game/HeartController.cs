@@ -69,6 +69,7 @@ public class HeartController : LogicController
         {
             if(_state == State.OnPlate)
             {
+                Debug.Log("findheart");
                 EventManager.GetInstance().Fire(ConfigContext.WomanEvent, "findheart");
             }
             else
@@ -91,6 +92,7 @@ public class HeartController : LogicController
                 {
                     this.transform.parent = plate.PlatePoint;
                     this.transform.localPosition = Vector3.zero;
+                    this.transform.localRotation = Quaternion.identity;
                 }
             }
         }
