@@ -37,7 +37,7 @@ public class EventManager : Singleton<EventManager>
     public void Fire(string name, string data)
     {
         LogicEvent findevent = null;
-        if (!_events.TryGetValue(name, out findevent))
+        if (_events.TryGetValue(name, out findevent))
         {
             _events[name].Invoke(data);
         }

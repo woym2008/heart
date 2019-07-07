@@ -26,4 +26,9 @@ public class StartBtnController : LogicController
 
         ProcessManager.GetInstance().SetState(new RunProcess());
     }
+
+    public override void Reset()
+    {
+        //base.Reset();
+    }
 }

@@ -7,16 +7,21 @@ public class WomanController : LogicController
     {
         WaitHeart,
         Angry,
+        Happy,
         Kill,
     }
 
     Animator _Animator;
 
+    WomanState _state;
+
     private void Start()
     {
-        EventManager.GetInstance().AddListener(ConfigContext.FlowerEvent, OnWoman);
+        EventManager.GetInstance().AddListener(ConfigContext.WomanEvent, OnWoman);
 
         _Animator = this.gameObject.GetComponent<Animator>();
+
+        _state = WomanState.WaitHeart;
     }
     public override void ActiveUpdate(float dt)
     {
@@ -25,22 +30,43 @@ public class WomanController : LogicController
 
     public void OnWoman(string param)
     {
-        Debug.Log("OnWoman");
+        Debug.Log("onwoman");
 
-        if(param == "NoHeart")
+        if(param == "noheart")
         {
+            Debug.Log("OnWoman noheart");
+            if(_state == WomanState.WaitHeart)
+            {
+                _state = WomanState.Angry;
 
+                PlayDie();
+            }
         }
 
-        if(param == "GiveKey")
+        if(param == "givekey")
         {
+            Debug.Log("OnWoman givekey");
 
+            EventManager.GetInstance().Fire(ConfigContext.HeadEvent,"open");
+
+            PlayDie();
         }
 
-        if(param == "FindHeart")
+        if(param == "findheart")
         {
             //_Animator
+            PlayWin();
         }
+    }
+
+    void PlayDie()
+    {
+        ProcessManager.GetInstance().SetState(new ReadyProcess());
+    }
+
+    void PlayWin()
+    {
+        ;
     }
 
     public override void OnActiveInput()

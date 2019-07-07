@@ -13,11 +13,12 @@ public class FlowerController : LogicController
     public override void ActiveUpdate(float dt)
     {
         base.ActiveUpdate(dt);
-    }
 
-    public override bool Equals(object other)
-    {
-        return base.Equals(other);
+        //test
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            EventManager.GetInstance().Fire(ConfigContext.HeartEvent, "drop");
+        }
     }
 
     public void OnFlower(string param)
@@ -28,7 +29,7 @@ public class FlowerController : LogicController
         {
             _anim.SetBool("iskilled", true);
 
-            EventManager.GetInstance().Fire(ConfigContext.HeartEvent, "Drop");
+            EventManager.GetInstance().Fire(ConfigContext.HeartEvent, "drop");
         }
     }
 

@@ -5,7 +5,7 @@ public class HeartController : LogicController
 {
     private Transform GroundPoint;
 
-    private float _movedis;
+    public float _movedis;
 
     public float DropSpeed = 0.1f;
     public Vector3 DropDir = new Vector3(0,-1,0);
@@ -28,7 +28,7 @@ public class HeartController : LogicController
         EventManager.GetInstance().AddListener(ConfigContext.HeartEvent, OnHeart);
 
         GroundPoint = GameObject.Find("GroundPoint").transform;
-        var offset = GroundPoint.transform.position.y - this.transform.position.y;
+        var offset = this.transform.position.y- GroundPoint.transform.position.y;
 
         _movedis = Mathf.Abs(offset);
 
@@ -46,7 +46,7 @@ public class HeartController : LogicController
 
                     this.transform.rotation *= Quaternion.Euler(0, 0, Time.deltaTime * RotateSpeed);
 
-                    if (this.transform.position.y < _oriPosition.y - _movedis)
+                    if (this.transform.position.y < (_oriPosition.y - _movedis))
                     {
                         _state = State.Ground;
                     }
@@ -63,6 +63,18 @@ public class HeartController : LogicController
         if(param == "drop")
         {
             _state = State.Drop;
+        }
+
+        if(param == "enterover" && IsRedHeart)
+        {
+            if(_state == State.OnPlate)
+            {
+                EventManager.GetInstance().Fire(ConfigContext.WomanEvent, "findheart");
+            }
+            else if(_state == State.Ground)
+            {
+                EventManager.GetInstance().Fire(ConfigContext.WomanEvent, "noheart");
+            }
         }
     }
 

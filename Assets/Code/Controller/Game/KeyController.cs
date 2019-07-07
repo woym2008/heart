@@ -60,6 +60,18 @@ public class KeyController : LogicController
 
             EventManager.GetInstance().Fire(ConfigContext.HeadEvent, "open");
         }
+
+        if(param == "enterover")
+        {
+                if(_state == KeyState.OnPlate)
+            {
+                EventManager.GetInstance().Fire(ConfigContext.WomanEvent, "givekey");
+            }
+            else if(_state != KeyState.Disappear)
+            {
+                EventManager.GetInstance().Fire(ConfigContext.WomanEvent, "noheart");
+            }
+        }
     }
 
     public override void OnActiveInput()

@@ -11,9 +11,11 @@ public class HeadController : LogicController
 
     private void Start()
     {
-        EventManager.GetInstance().AddListener(ConfigContext.FlowerEvent, OnHead);
+        EventManager.GetInstance().AddListener(ConfigContext.HeadEvent, OnHead);
 
         _isOpen = false;
+
+        _anim = this.gameObject.GetComponent<Animator>();
     }
     public override void ActiveUpdate(float dt)
     {
