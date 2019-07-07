@@ -34,6 +34,8 @@ public class HeadController : LogicController
 
             if (_anim != null)
                 _anim.SetBool("isopen", true);
+
+            EventManager.GetInstance().Fire(ConfigContext.SignalEvent,"enable");
         }
     }
 

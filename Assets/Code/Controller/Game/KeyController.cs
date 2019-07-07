@@ -72,6 +72,17 @@ public class KeyController : LogicController
                 EventManager.GetInstance().Fire(ConfigContext.WomanEvent, "noheart");
             }
         }
+
+        if(param == "disappear")
+        {
+            _state = KeyState.Disappear;
+
+            var sprenderer = this.gameObject.GetComponent<SpriteRenderer>();
+            if(sprenderer != null)
+            {
+                sprenderer.enabled = false;
+            }
+        }
     }
 
     public override void OnActiveInput()

@@ -49,6 +49,8 @@ public class WomanController : LogicController
 
             EventManager.GetInstance().Fire(ConfigContext.HeadEvent,"open");
 
+            EventManager.GetInstance().Fire(ConfigContext.KeyEvent, "disappear");
+
             PlayDie();
         }
 

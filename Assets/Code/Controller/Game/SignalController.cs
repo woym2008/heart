@@ -5,9 +5,11 @@ public class SignalController : LogicController
 {
     bool _isUsed = false;
 
+    bool _isEnable = false;
+
     private void Start()
     {
-        //EventManager.GetInstance().AddListener(ConfigContext.FlowerEvent, OnSignal);
+        EventManager.GetInstance().AddListener(ConfigContext.SignalEvent, OnSignal);
 
         _isUsed = false;
     }
@@ -16,9 +18,14 @@ public class SignalController : LogicController
         base.ActiveUpdate(dt);
     }
 
-    public void OnSignal(string parm)
+    public void OnSignal(string param)
     {
-        Debug.Log("Signal");
+        Debug.LogWarning("Signal");
+
+        if(!_isEnable && param == "enable")
+        {
+            _isEnable = true;
+        }
     }
 
     public override void Reset()
@@ -30,10 +37,14 @@ public class SignalController : LogicController
     public override void OnActiveInput()
     {
         base.OnActiveInput();
+        if(_isEnable)
+        {
+            Debug.LogWarning("Signal OnActiveInput");
 
-        _isUsed = true;
+            _isUsed = true;
 
-        EventManager.GetInstance().Fire(ConfigContext.HerbicideEvent, "use");
+            EventManager.GetInstance().Fire(ConfigContext.HerbicideEvent, "use");
+        }
 
     }
 }
