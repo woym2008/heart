@@ -38,7 +38,9 @@ public class ManController : LogicController
     {
         base.EnterActive();
 
-        foreach(var point in _points)
+        _currentPoints.Clear();
+
+        foreach (var point in _points)
         {
             _currentPoints.Enqueue(point);
         }

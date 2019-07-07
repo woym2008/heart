@@ -3255,7 +3255,7 @@ MonoBehaviour:
   HandPoint: {fileID: 1996227248}
   HandLeftPos: {fileID: 1168014123}
   HandRightPos: {fileID: 123945253}
-  Speed: 0.005
+  Speed: 0.01
   _currentDir: {x: 0, y: 0, z: 0}
   Hole: {fileID: 1335652445}
   CameraSpeed: 0.5

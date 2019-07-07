@@ -42,5 +42,7 @@ public class HerbicideController : LogicController
         base.Reset();
         if(_anim != null)
             _anim.SetBool("enable", false);
+
+        _isEnable = false;
     }
 }
