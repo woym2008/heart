@@ -20,11 +20,6 @@ public class HeadController : LogicController
         base.ActiveUpdate(dt);
     }
 
-    public override bool Equals(object other)
-    {
-        return base.Equals(other);
-    }
-
     public void OnHead(string param)
     {
         Debug.Log("HeadController");
@@ -35,7 +30,8 @@ public class HeadController : LogicController
 
             _isOpen = true;
 
-            _anim.SetBool("isopen", true);
+            if (_anim != null)
+                _anim.SetBool("isopen", true);
         }
     }
 

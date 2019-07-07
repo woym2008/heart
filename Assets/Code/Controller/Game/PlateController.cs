@@ -93,7 +93,8 @@ public class PlateController : LogicController
         {
             base.Reset();
 
-            _anim.SetBool("isbroke", false);
+            if(_anim != null)
+                _anim.SetBool("isbroke", false);
         }
     }
 
