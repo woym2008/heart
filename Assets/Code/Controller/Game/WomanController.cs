@@ -15,6 +15,8 @@ public class WomanController : LogicController
 
     WomanState _state;
 
+    public AudioClip _talkclip;
+
     public DialogController _Dialog;
 
     public WhiteController _white;
@@ -118,6 +120,8 @@ public class WomanController : LogicController
     {
         yield return new WaitForSeconds(2);
 
+        AudioSource.PlayClipAtPoint(_talkclip, Vector3.zero);
+
         _Dialog.Play("anim_dialog_doubt");
 
         StartCoroutine(ReadyAngry());
@@ -126,6 +130,8 @@ public class WomanController : LogicController
     IEnumerator ReadyAngry()
     {
         yield return new WaitForSeconds(2);
+
+
 
         _Dialog.Play("anim_dialog_angry");
 
